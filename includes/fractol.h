@@ -14,14 +14,14 @@
 # define FRACTOL_H
 
 /* Window */
-# define WIDTH 1080
-# define HEIGHT 1080
+# define WIDTH 1280
+# define HEIGHT 720
 
 /* Libraries */
-#include "libft.h"
-#include "printf.h"
-#include "mlx.h"
+#include "../libft/includes/libft.h"
+#include "../minilibx-linux/mlx.h"
 #include <math.h>
+#include <stdio.h>
 
 /* KEYS */
 # define KEY_RED_CROSS 17
@@ -51,6 +51,9 @@ typedef struct s_imag
 
 typedef struct s_fractol
 {
+	void	*mlx;
+	void	*win;
+	t_imag	imag;
 	int	is_julia;
 }			t_fractol;
 

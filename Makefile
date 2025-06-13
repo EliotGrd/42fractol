@@ -8,7 +8,7 @@ OBJ_PATH = objs/
 OBJ = $(SRC:.c=.o)
 OBJS = $(addprefix $(OBJ_PATH), $(OBJ))
 
-INC = -Iincludes -Ilibft -Iprintf -Iminilibx-linux
+INC = -Iincludes -Ilibft -Iminilibx-linux
 
 PURPLE = \033[0;35m
 NC = \033[0m
@@ -17,7 +17,6 @@ LIBFT_PATH = libft/
 LIBFT_AR = libft/libft.a
 MLX_PATH = minilibx-linux/
 MLX_AR = minilibx-linux/libmlx.a
-
 RM = rm -f
 
 CC = cc
@@ -52,10 +51,10 @@ clean :
 	@echo "\n$(PURPLE)  Done ✓$(NC)"
 
 fclean : clean
-	@echo "\n$(PURPLE)Cleaning Fractol...$(NC)"
+	@echo "\n$(PURPLE)  Cleaning Fractol...$(NC)"
 	@$(RM) $(NAME)
 	@make fclean -s -C $(LIBFT_PATH)
-	@echo "\n$(PURPLE)Done ✓$(NC)"
+	@echo "\n$(PURPLE)  Done ✓$(NC)"
 
 $(OBJS) : $(OBJ_PATH)
 
