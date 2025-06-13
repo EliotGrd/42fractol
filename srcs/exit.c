@@ -1,21 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.c                                           :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: egiraud <egiraud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/12 16:23:44 by egiraud           #+#    #+#             */
-/*   Updated: 2025/06/12 16:24:55 by egiraud          ###   ########.fr       */
+/*   Created: 2025/06/13 19:13:41 by egiraud           #+#    #+#             */
+/*   Updated: 2025/06/13 19:42:04 by egiraud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
+void	free_fractol(t_fractol f)
 {
-	char	*dst;
+	mlx_destroy_image(f.mlx, f.img.img);
+	mlx_destroy_window(f.mlx, f.win);
+	free(f.mlx);
+	ft_printf("Program terminated successfully :) ");
+	exit(0);
+}
 
-	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+void	test(int i)
+{
+	ft_printf("%d", i);
+}
+
+void	exit_fractol(int errcode, t_fractol *f)
+{
+	if (errcode == QUIT)
+	{
+		free_fractol(*f);
+	}
+	else if (errcode == INPUT)
+	{
+		ft_printf("Bad Input try this :\n");
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: egiraud <egiraud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 15:33:59 by egiraud           #+#    #+#             */
-/*   Updated: 2025/06/12 16:40:25 by egiraud          ###   ########.fr       */
+/*   Updated: 2025/06/13 19:41:24 by egiraud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,13 @@
 /* Window */
 # define WIDTH 1280
 # define HEIGHT 720
+
+/* Misc */
+# define MAX_ITER 100
+
+/* Err Codes */
+# define QUIT 0
+# define INPUT 1
 
 /* Libraries */
 #include "../libft/includes/libft.h"
@@ -40,21 +47,24 @@
 # define MOUSE_WHEEL_DOWN 5
 
 /* Structs */
-typedef struct s_imag
+typedef struct s_img
 {
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-}			t_imag;
+}			t_img;
 
 typedef struct s_fractol
 {
 	void	*mlx;
 	void	*win;
-	t_imag	imag;
+	t_img	img;
 	int	is_julia;
+	double zoom;
+    double offset_x;
+    double offset_y;
 }			t_fractol;
 
 typedef struct s_pixel
@@ -68,5 +78,9 @@ typedef struct s_complex
 	double	reel;
 	double	imag;
 }			t_complex;
+
+
+void	exit_fractol(int errcode, t_fractol *f);
+void	test(int i);
 
 #endif
