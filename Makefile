@@ -1,7 +1,7 @@
 NAME = fractol
 
 SRC_PATH = srcs/
-SRC = color.c handle_keys.c mathing.c render.c main.c exit.c
+SRC = color.c handle_keys.c mathing.c render.c main.c exit.c init.c
 SRCS = $(addprefix $(SRC_PATH), $(SRC))
 
 OBJ_PATH = objs/
@@ -20,7 +20,7 @@ MLX_AR = minilibx-linux/libmlx.a
 RM = rm -f
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 MLXFLAGS = -Lmlx_linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 
 all : $(MLX_AR) $(LIBFT_AR) $(NAME)

@@ -6,7 +6,7 @@
 /*   By: egiraud <egiraud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 15:33:59 by egiraud           #+#    #+#             */
-/*   Updated: 2025/06/13 19:41:24 by egiraud          ###   ########.fr       */
+/*   Updated: 2025/06/15 22:18:31 by egiraud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ typedef struct s_fractol
 	void	*mlx;
 	void	*win;
 	t_img	img;
-	int	is_julia;
+	char	*type;
 	double zoom;
     double offset_x;
     double offset_y;
@@ -79,8 +79,12 @@ typedef struct s_complex
 	double	imag;
 }			t_complex;
 
-
+double	scale(double to_scale, double new_min, double new_max, double old_min, double old_max);
 void	exit_fractol(int errcode, t_fractol *f);
 void	test(int i);
+void	init_clear(t_fractol *f);
+void	init_fractol(t_fractol *f);
+void	key_controller(t_fractol *f);
+
 
 #endif
