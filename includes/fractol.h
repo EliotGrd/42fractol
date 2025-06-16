@@ -6,7 +6,7 @@
 /*   By: egiraud <egiraud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 15:33:59 by egiraud           #+#    #+#             */
-/*   Updated: 2025/06/15 22:18:31 by egiraud          ###   ########.fr       */
+/*   Updated: 2025/06/16 22:01:44 by egiraud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,25 @@ typedef struct s_complex
 	double	imag;
 }			t_complex;
 
-double	scale(double to_scale, double new_min, double new_max, double old_min, double old_max);
-void	exit_fractol(int errcode, t_fractol *f);
-void	test(int i);
+/* Maths */
+t_complex	c_add(t_complex a, t_complex b);
+t_complex	c_mult(t_complex a, t_complex b);
+int	c_abs(t_complex a);
+double	scale(double to_scale, double new_min, double new_max, double old_max);
+
+/* Init */
 void	init_clear(t_fractol *f);
 void	init_fractol(t_fractol *f);
+
+/* Controller */
 void	key_controller(t_fractol *f);
 
+/* Fractals */
+int	mandelbrot(t_complex c);
+int	julia(t_complex c);
+int	burningship(t_complex c);
+
+
+void	exit_fractol(int errcode, t_fractol *f);
 
 #endif
