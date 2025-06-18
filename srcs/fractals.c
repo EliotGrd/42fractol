@@ -20,18 +20,29 @@ int	mandelbrot(t_complex c)
 	n = 0;
 	z.reel = 0;
 	z.imag = 0;
-	while (n <= MAX_ITER && c_abs(z) < 2.0)
+	while (n <= MAX_ITER && c_abs(z) <= 2.0)
 	{
 		z = c_add(c_mult(z, z), c);
+
 		n++;
 	}
 	return (n);
 }
 
-int	julia(double pr, double pi)
+int	burningship(t_complex c)
 {
-}
+	t_complex z;
+	int	n;
 
-int	burningship(double pr, double pi)
-{
+	n = 0;
+	z.reel = 0;
+	z.imag = 0;
+	while (n <= MAX_ITER && c_abs(z) <= 2.0)
+	{
+		z.reel = fabs(z.reel);
+		z.imag = fabs(z.imag);
+		z = c_add(c_mult(z, z), c);
+		n++;
+	}
+	return (n);
 }

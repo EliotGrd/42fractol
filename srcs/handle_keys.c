@@ -12,23 +12,27 @@
 
 #include "../includes/fractol.h"
 
-void	handle_key(int keycode, void *f)
+void	handle_key(int keycode, t_fractol *f)
 {
 	if (keycode == KEY_ESC)
 		exit_fractol(0, f);
 	else if (keycode == KEY_W || keycode == KEY_UP)
-			ft_printf("up pressed\n");
+			f->offset_y += 0.3;
+		//	ft_printf("a");
 	else if (keycode == KEY_A || keycode == KEY_LEFT)
-			ft_printf("left pressed\n");
+			f->offset_x -= 0.3;
+		//	ft_printf("a");
 	else if (keycode == KEY_S || keycode == KEY_DOWN)
-			ft_printf("down pressed\n");
+			f->offset_y -= 0.3;
+		//	ft_printf("a");
 	else if (keycode == KEY_D || keycode == KEY_RIGHT)
-			ft_printf("right pressed\n");
+			f->offset_x += 0.3;
+		//	ft_printf("a");
 	else if (keycode == KEY_PLUS)
 			ft_printf("plus pressed\n");
 	else if (keycode == KEY_MINUS)
 			ft_printf("minus pressed\n");
-	(void)f;
+	//render_fractal(f);
 }
 
 void	handle_mouse_key(int keycode, int x, int y, t_fractol *f)

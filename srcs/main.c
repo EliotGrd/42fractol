@@ -35,6 +35,8 @@ static int	check_input(t_fractol *f, int ac, char **av)
 	else if (ac == 4 && !ft_strncmp(av[1], "julia", 5) && check_julia(av))
 	{
 		f->type = "julia";
+		f->jr = atof(av[2]);
+		f->ji = atof(av[3]);
 		return (1);
 	}
 	else if (ac == 2 && !ft_strncmp(av[1], "burningship", 11))
@@ -52,16 +54,13 @@ static int	check_input(t_fractol *f, int ac, char **av)
 
 int main(int ac, char **av)
 {
-	//t_imag	img;
 	t_fractol f;
 
-	(void)ac;
-	(void)av;
 	init_clear(&f);
 	check_input(&f, ac, av);
-	//test(1);
 	init_fractol(&f);
-    //draw_fractal(&f);
+    render_fractal(&f);
+    render_fractal(&f);
 	key_controller(&f);
 	mlx_loop(f.mlx);
 }

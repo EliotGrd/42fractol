@@ -26,8 +26,8 @@ t_complex	c_mult(t_complex a, t_complex b)
 {
 	t_complex	res;
 
-	res.reel = a.reel * b.reel - a.reel * b.imag;
-	res.imag = a.imag * b.reel + a.imag * b.imag;
+	res.reel = a.reel * b.reel - a.imag * b.imag;
+	res.imag = a.reel * b.imag + a.imag * b.reel;
 
 	return res;
 }
@@ -36,6 +36,8 @@ int	c_abs(t_complex a)
 {
 	return (sqrt(a.reel * a.reel + a.imag * a.imag));
 }
+
+
 
 double	scale(double to_scale, double new_min, double new_max, double old_max)
 {
