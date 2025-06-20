@@ -6,7 +6,7 @@
 /*   By: egiraud <egiraud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 19:37:37 by egiraud           #+#    #+#             */
-/*   Updated: 2025/06/15 15:02:45 by egiraud          ###   ########.fr       */
+/*   Updated: 2025/06/20 23:31:56 by egiraud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,44 +17,53 @@ void	handle_key(int keycode, t_fractol *f)
 	if (keycode == KEY_ESC)
 		exit_fractol(0, f);
 	else if (keycode == KEY_W || keycode == KEY_UP)
-			f->offset_y += 0.3;
-		//	ft_printf("a");
+			f->offset_y -= 0.4 * f->zoom;
 	else if (keycode == KEY_A || keycode == KEY_LEFT)
-			f->offset_x -= 0.3;
-		//	ft_printf("a");
+			f->offset_x -= 0.4 * f->zoom;
 	else if (keycode == KEY_S || keycode == KEY_DOWN)
-			f->offset_y -= 0.3;
-		//	ft_printf("a");
+			f->offset_y += 0.4 * f->zoom;
 	else if (keycode == KEY_D || keycode == KEY_RIGHT)
-			f->offset_x += 0.3;
-		//	ft_printf("a");
+			f->offset_x += 0.4 * f->zoom;
 	else if (keycode == KEY_PLUS)
-			ft_printf("plus pressed\n");
+	{
+			f->c_max_iter += 10;
+			update_color_table(f);
+	}
 	else if (keycode == KEY_MINUS)
-			ft_printf("minus pressed\n");
-	//render_fractal(f);
+	{
+			f->c_max_iter -= 10;
+			update_color_table(f);
+	}
+	else if (keycode == KEY_C)
+	{
+			f->color_mode = (f->color_mode + 1) % 4;
+			update_color_table(f);
+	}
+	render_fractal(f);
 }
 
-void	handle_mouse_key(int keycode, int x, int y, t_fractol *f)
+static void	zoom_at_point(int x, int y, double zoom_factor, t_fractol *f)
 {
-	(void)x;
-	(void)y;
-	(void)f;
-	if (keycode == MOUSE_WHEEL_UP)
-		ft_printf("zoomed in\n");
-	else if (keycode == MOUSE_WHEEL_DOWN)
-			ft_printf("zoomed out\n");
+    double re;
+    double im;
+
+	re  = scale(x, -2.0 * f->zoom + f->offset_x, 2.0 * f->zoom + f->offset_x, WIDTH);
+    im = scale(y, -2.0 * f->zoom + f->offset_y, 2.0 * f->zoom + f->offset_y, HEIGHT);
+	f->zoom *= zoom_factor;
+    f->offset_x = re - (re - f->offset_x) * zoom_factor;
+    f->offset_y = im - (im - f->offset_y) * zoom_factor;
 }
 
 void	handle_close(t_fractol *f) {
     (void)f;
     exit_fractol(0, f);
 }
-
-void	key_controller(t_fractol *f)
+void	handle_mouse_key(int keycode, int x, int y, t_fractol *f)
 {
-	mlx_key_hook(f->win, (int (*)(int, void *))handle_key, &f);
-	mlx_mouse_hook(f->win, (int (*)(int, int, int, void *))handle_mouse_key, &f);
-	mlx_hook(f->win, 17, 0, (int (*)(void *))handle_close, &f);
-
+	(void)x;
+	if (keycode == MOUSE_WHEEL_UP)
+    	zoom_at_point(x, y, 0.7, f);
+	else if (keycode == MOUSE_WHEEL_DOWN)
+   		zoom_at_point(x, y, 1.3, f);
+	render_fractal(f);
 }

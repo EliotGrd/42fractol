@@ -12,7 +12,7 @@
 
 #include "../includes/fractol.h"
 
-int	mandelbrot(t_complex c)
+int	mandelbrot(t_complex c, int c_max_iter)
 {
 	t_complex z;
 	int	n;
@@ -20,16 +20,28 @@ int	mandelbrot(t_complex c)
 	n = 0;
 	z.reel = 0;
 	z.imag = 0;
-	while (n <= MAX_ITER && c_abs(z) <= 2.0)
+	while (n < c_max_iter && c_abs(z) < 4.0)
 	{
 		z = c_add(c_mult(z, z), c);
-
 		n++;
 	}
 	return (n);
 }
 
-int	burningship(t_complex c)
+int	julia(t_complex c, t_complex z, int c_max_iter)
+{
+	int	n;
+
+	n = 0;
+	while (n < c_max_iter && c_abs(z) < 4.0)
+	{
+		z = c_add(c_mult(z, z), c);
+		n++;
+	}
+	return (n);
+}
+
+int	burningship(t_complex c, int c_max_iter)
 {
 	t_complex z;
 	int	n;
@@ -37,7 +49,7 @@ int	burningship(t_complex c)
 	n = 0;
 	z.reel = 0;
 	z.imag = 0;
-	while (n <= MAX_ITER && c_abs(z) <= 2.0)
+	while (n < c_max_iter && c_abs(z) < 4.0)
 	{
 		z.reel = fabs(z.reel);
 		z.imag = fabs(z.imag);

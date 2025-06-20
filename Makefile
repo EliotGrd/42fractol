@@ -1,7 +1,7 @@
 NAME = fractol
 
 SRC_PATH = srcs/
-SRC = color.c handle_keys.c mathing.c render.c main.c exit.c init.c fractals.c
+SRC = color.c handle_keys.c mathing.c render.c main.c exit.c init.c fractals.c color_update.c
 SRCS = $(addprefix $(SRC_PATH), $(SRC))
 
 OBJ_PATH = objs/

@@ -6,7 +6,7 @@
 /*   By: egiraud <egiraud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 19:13:41 by egiraud           #+#    #+#             */
-/*   Updated: 2025/06/15 21:10:28 by egiraud          ###   ########.fr       */
+/*   Updated: 2025/06/20 22:42:54 by egiraud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,22 @@ void	free_fractol(t_fractol *f)
 		mlx_destroy_display(f->mlx);
 		free(f->mlx);
 	}
+	if (f->color_table)
+		free(f->color_table);
 	ft_printf("Program terminated successfully :) ");
 	exit(0);
-}
-
-void	test(int i)
-{
-	ft_printf("%d", i);
 }
 
 void	exit_fractol(int errcode, t_fractol *f)
 {
 	if (errcode == QUIT)
 	{
+		ft_printf("Program closing...");
+		free_fractol(f);
+	}
+	else if (errcode == MALLOC)
+	{
+		ft_printf("Malloc Error :(");
 		free_fractol(f);
 	}
 	else if (errcode == INPUT)

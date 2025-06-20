@@ -6,7 +6,7 @@
 /*   By: egiraud <egiraud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 15:44:02 by egiraud           #+#    #+#             */
-/*   Updated: 2025/06/15 22:20:36 by egiraud          ###   ########.fr       */
+/*   Updated: 2025/06/20 22:52:11 by egiraud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	check_input(t_fractol *f, int ac, char **av)
 		f->type = "mandelbrot";
 		return (1);
 	}
-	else if (ac == 4 && !ft_strncmp(av[1], "julia", 5) && check_julia(av))
+	else if (ac == 4 && !ft_strncmp(av[1], "mulia", 5) && check_julia(av))
 	{
 		f->type = "julia";
 		f->jr = atof(av[2]);
@@ -60,7 +60,8 @@ int main(int ac, char **av)
 	check_input(&f, ac, av);
 	init_fractol(&f);
     render_fractal(&f);
-    render_fractal(&f);
-	key_controller(&f);
+	mlx_key_hook(f.win, (int (*)())handle_key, &f);
+	mlx_mouse_hook(f.win, (int (*)())handle_mouse_key, &f);
+	mlx_hook(f.win, 17, 0, (int (*)())handle_close, &f);
 	mlx_loop(f.mlx);
 }

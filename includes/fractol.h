@@ -6,7 +6,7 @@
 /*   By: egiraud <egiraud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 15:33:59 by egiraud           #+#    #+#             */
-/*   Updated: 2025/06/16 22:01:44 by egiraud          ###   ########.fr       */
+/*   Updated: 2025/06/20 23:31:36 by egiraud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,26 @@
 # define FRACTOL_H
 
 /* Window */
-# define WIDTH 720
-# define HEIGHT 720
+# define WIDTH 1080
+# define HEIGHT 1080
 
 /* Misc */
-# define MAX_ITER 100
+# define MAX_ITER 50
 
 /* Err Codes */
 # define QUIT 0
 # define INPUT 1
+# define MALLOC 2
 
 /* Libraries */
 #include "../libft/includes/libft.h"
 #include "../minilibx-linux/mlx.h"
 #include <math.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 /* COLORS */
 #define BLACK   0xFF000000
-#define WHITE   0xFFFFFFFF
-#define RED     0xFFFF0000
-#define GREEN   0xFF00FF00
-#define BLUE    0xFF0000FF
-#define YELLOW  0xFFFFFF00
-#define CYAN    0xFF00FFFF
-#define MAGENTA 0xFFFF00FF
 
 /* KEYS */
 # define KEY_RED_CROSS 17
@@ -55,6 +50,7 @@
 # define KEY_PLUS 61
 # define MOUSE_WHEEL_UP 4
 # define MOUSE_WHEEL_DOWN 5
+# define KEY_C 99
 
 /* Structs */
 typedef struct s_img
@@ -72,11 +68,14 @@ typedef struct s_fractol
 	void	*win;
 	t_img	img;
 	char	*type;
-	//double	zoom;
+	int		c_max_iter;
+	int		color_mode;
+	double	zoom;
     double	offset_x;
     double	offset_y;
 	double	jr;
 	double	ji;
+	int		*color_table;
 }			t_fractol;
 
 typedef struct s_pixel
@@ -105,15 +104,25 @@ void		init_fractol(t_fractol *f);
 void		key_controller(t_fractol *f);
 
 /* Fractals */
-int			mandelbrot(t_complex c);
-//int			julia(t_complex c);
-int			burningship(t_complex c);
+int			mandelbrot(t_complex c, int c_max_iter);
+int			julia(t_complex c, t_complex z, int c_max_iter);
+int			burningship(t_complex c, int c_max_iter);
 
+/* Palettes */
+int			poli_gradiant(int iter, int max_iter);
+int			sin_tripy(int iter, int max_iter);
+int			fire_thing(int iter, int max_iter);
+int			purple_trip(int iter, int max_iter);
 
-//void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
-void	init_image(t_fractol *f);
+int			colorize(int nb_iter, t_fractol *f);
+void		update_color_table(t_fractol *f);
+
+void		init_image(t_fractol *f);
 void		render_fractal(t_fractol *f);
-int			colorize(int nb_iter);
 void		exit_fractol(int errcode, t_fractol *f);
+
+void		handle_close(t_fractol *f);
+void		handle_key(int keycode, t_fractol *f);
+void		handle_mouse_key(int keycode, int x, int y, t_fractol *f);
 
 #endif
